@@ -506,7 +506,7 @@ https://kubesphere.io             2020-12-22 10:12:20
 
 ```
 
-![](/home/eedy/Pictures/login details.png)
+![](https://github.com/eedygreen/KubeSphere/blob/main/kubesphere_configuration/login details.png)
 
 Output of the Kubeshpere logs <br>
 
@@ -516,6 +516,6 @@ Output of the Kubeshpere logs <br>
 
 Use the Console url to access the Login page and use the details to login
 
-![](/home/eedy/Pictures/kubsphere login page.png)
+![](https://github.com/eedygreen/KubeSphere/blob/main/kubesphere_configuration/kubesphere_login_page.png)
 
 KubeSphere Login page
