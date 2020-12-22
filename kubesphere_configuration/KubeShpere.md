@@ -506,7 +506,7 @@ https://kubesphere.io             2020-12-22 10:12:20
 
 ```
 
-![](https://github.com/eedygreen/KubeSphere/blob/main/kubesphere_configuration/login details.png)
+![](https://github.com/eedygreen/KubeSphere/blob/main/kubesphere_configuration/login%20details.png)
 
 Output of the Kubeshpere logs <br>
 
