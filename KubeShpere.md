@@ -116,9 +116,49 @@
    		- {name: node, address: 172.16.0.3, user: ubuntu, privateKeyPath: "~/.ssh/id_rsa"}
    ```
 
-6.  Create the cluster
+6. Create the cluster
 
    ```shell
+   sudo ./kk create cluster --with-kubernetes v1.18.6 --with-kubesphere
+   ```
+
+   ### Error 1
+
+   One of the problem encountered was the ssh key not found in the root node=[host_ip]
+
+   ### Work Around
+
+   1. To solve this problem
+
+   Transfer the ssh keys to the root directory. 
+
+   *The reason why we need the root user group.*
+
+   ```shell
+   # create .ssh directory in the root directory
+   sudo mkdir -p /root/.ssh
+   
+   # I copied the authorized_keys, id_rsa, id_rsa.pub to the root/.ssh 
+   sudo cp /home/eedy/.ssh/authourized_kyes /root/.ssh/
+   ```
+
+   ### Error 2
+
+   2. The Second Problem, using Docker version v1.18.6 resulted to failure.
+
+   ```shell
+   # Installation failure
+   
+   sudo ./kk create cluster --with-kubernetes v1.18.6 --with-kubesphere
+   ```
+
+   ### Work Around
+
+   Use the default Kubernetes version v1.17.9 for KubeSphere
+
+   ```shell
+   # Work Around, use the default Kubernetes version of KubeSphere
+   
    sudo ./kk create cluster --with-kubernetes v1.17.9 --with-kubesphere
    ```
 
@@ -366,23 +406,46 @@ Please check the result using the command:
 
 ```
 
-### Work Around
 
-One of the problem encountered was the ssh key not found in the root node=[host_ip]
 
-To solve this problem
+### Verify The Installation
 
-I transfer the ssh keys to the root directory. 
-
-*The reason why we need the root user group.*
+To verify the installation
 
 ```shell
-# create .ssh directory in the root directory
-sudo mkdir -p /root/.ssh
-
-# I copied the authorized_keys, id_rsa, id_rsa.pub to the root/.ssh 
-sudo cp /home/eedy/.ssh/authourized_kyes /root/.ssh/
+kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 ```
 
 
+
+### Error 3
+
+```
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+error: expected 'logs [-f] [-p] (POD | TYPE/NAME) [-c CONTAINER]'.
+POD or TYPE/NAME is a required argument for the logs command
+See 'kubectl logs -h' for help and examples
+```
+
+
+
+### Work Around
+
+Create .kube directory  in $HOME directory #If it doesn't exist
+
+```shell
+mkdir -p $HOME/.kube
+```
+
+Change the ownership of the directory
+
+```shell
+sudo chown $(id -u):$(id -g) $HOME/.kube
+```
+
+Copy the Admin.conf file to .kube
+
+```shell
+sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config
+```
 
