@@ -57,7 +57,9 @@
    eedy : eedy adm cdrom sudo dip plugdev lpadmin sambashare
    ```
 
+<br>
 
+</br>
 
 ### Install KubeSphere
 
@@ -406,7 +408,9 @@ Please check the result using the command:
 
 ```
 
+<br>
 
+</br>
 
 ### Verify The Installation
 
@@ -416,7 +420,7 @@ To verify the installation
 kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 ```
 
-
+<br> </br>
 
 ### Error 3
 
@@ -449,3 +453,69 @@ Copy the Admin.conf file to .kube
 sudo cp /etc/kubernetes/admin.conf $HOME/.kube/config
 ```
 
+
+
+### Error 4.
+
+Failed to ansible-playbook result-info.yaml
+
+### Work Around
+
+Install Ansible and restart the server
+
+```shell
+# Install Ansible
+sudp apt install ansible
+
+sudo reboot now
+```
+
+
+
+try to view the log again
+
+Successful completion will provide the console address and login details
+
+```shell
+kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
+```
+
+Kubesphere Welcome Screen
+
+```
+*************************************************
+#####################################################
+###              Welcome to KubeSphere!           ###
+#####################################################
+
+Console: http://172.16.127.143:30880
+Account: admin
+Password: P@88w0rd
+
+NOTES：
+  1. After logging into the console, please check the
+     monitoring status of service components in
+     the "Cluster Management". If any service is not
+     ready, please wait patiently until all components 
+     are ready.
+  2. Please modify the default password after login.
+
+#####################################################
+https://kubesphere.io             2020-12-22 10:12:20
+#####################################################
+
+```
+
+![](/home/eedy/Pictures/login details.png)
+
+Output of the Kubeshpere logs <br>
+
+</br>
+
+### KubeSphere Console
+
+Use the Console url to access the Login page and use the details to login
+
+![](/home/eedy/Pictures/kubsphere login page.png)
+
+KubeSphere Login page
